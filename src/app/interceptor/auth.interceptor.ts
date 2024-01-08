@@ -7,10 +7,13 @@ export const authInterceptor = (config: RetryConfig) => {
     next: HttpHandlerFn
   ) => {
     const userToken = localStorage.getItem('token');
-    const modifiedReq = req.clone({
-      headers: req.headers.set('Authorization', `Bearer ${userToken}`),
-    });
-    return next(modifiedReq).pipe(retry(config));
+    if (userToken) {
+      const modifiedReq = req.clone({
+        headers: req.headers.set('Authorization', `Bearer ${userToken}`),
+      });
+      return next(modifiedReq).pipe(retry(config));
+    }
+    return next(req);
   };
 
   return interceptor;

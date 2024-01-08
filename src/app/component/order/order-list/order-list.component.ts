@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PickListModule } from 'primeng/picklist';
-import { OrderService } from '../../service/order/order.service';
-import { OrderDto } from '../../dto/OrderDto';
+import { OrderService } from '../../../service/order/order.service';
+import { OrderDto } from '../../../dto/OrderDto';
 
 @Component({
   selector: 'app-order-list',

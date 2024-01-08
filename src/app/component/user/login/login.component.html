@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="login">
+    <h1 style="text-align: center">Login</h1>
+    <div>
+      <label for="username">Username</label>
+      <input style="width: 100%" pInputText id="username" [(ngModel)]="userDto.username"/>
+    </div>
+    <div style="margin-top: 20px">
+      <label for="password">Password</label>
+      <input style="width: 100%" pInputText type="password" id="password" [(ngModel)]="userDto.password"/>
+    </div>
+    <div style="margin-top: 20px">
+      <p-button [style]="{ 'width': '100%' }" label="Login" [loading]="loading" (click)="login()" (onClick)="load()"></p-button>
+    </div>
+  </div>
+</div>
