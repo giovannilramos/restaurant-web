@@ -1,70 +1,91 @@
 import { Component } from '@angular/core';
 import { UserService } from '../../../service/user/user.service';
-import { UserDto } from '../../../dto/UserDto';
-import { InputTextModule } from 'primeng/inputtext';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+
+import { Router } from '@angular/router';
+import { FormLoginService } from '../../../service/user/form-login.service';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { RippleModule } from 'primeng/ripple';
-import { Router } from '@angular/router';
-import { error } from '@angular/compiler-cli/src/transformers/util';
+
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
-    InputTextModule,
     FormsModule,
+    MatInputModule,
+    ReactiveFormsModule,
     ButtonModule,
-    ToastModule,
-    RippleModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  userDto: UserDto = {
-    username: '',
-    password: '',
-    token: '',
-  };
-
   loading: boolean = false;
 
-  constructor(private readonly userService: UserService, private readonly messageService: MessageService, private readonly router: Router) {
+  constructor(
+    private readonly userService: UserService,
+    private readonly messageService: MessageService,
+    private readonly router: Router,
+    public formLoginService: FormLoginService
+  ) {
   }
 
-  public login(): void {
-    this.userService.login(this.userDto).subscribe({
+  login(): void {
+    const loggedUser = this.userService.getLoggedUser();
+    if (loggedUser && loggedUser !== this.formLoginService.formLogin.get('username')?.value) {
+      localStorage.clear();
+    }
+
+    this.userService.login(this.formLoginService.formLogin.value).subscribe({
       next: (value) => {
         localStorage.setItem('token', value.token);
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Login successfully' });
       },
       error: (err) => {
-        if (err.status === 400) {
-          const error: Map<string, string[]> = new Map<string, string[]>(Object.entries(err.error.errors));
-          error.forEach((value, key) => {
-            value.forEach(message => {
-              this.messageService.add({ severity: 'error', summary: 'Error', detail: `${key} ${message}` })
-            })
-          });
-        }
-
-        if (err.status === 404) {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: err.error.message })
-        }
-
-        this.loading = false;
+        this.onLoginError(err);
       },
       complete: () => {
-        this.loading = false;
-        this.router.navigate(['/products']).then();
+        this.onLoginComplete();
       }
     });
   }
 
-  public load(): void {
+  private onLoginError(err: any) {
+    if (err.status === 400) {
+      const error: Map<string, string[]> = new Map<string, string[]>(Object.entries(err.error.errors));
+      error.forEach((value, key) => {
+        value.forEach(message => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: `${key} ${message}` })
+        })
+      });
+    }
+
+    if (err.status === 404) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: err.error.message })
+    }
+
+    this.loading = false;
+  }
+
+  private onLoginComplete() {
+    this.loading = false;
+    const roles = this.userService.getLoggedUserRoles();
+    if (roles) {
+      if (roles === 'ROLE_USER') {
+        this.router.navigate(['/products']).then();
+      }
+      if (roles === 'ROLE_ADMIN') {
+        this.router.navigate(['/admin']).then();
+      }
+      if (roles === 'ROLE_KITCHEN') {
+        this.router.navigate(['/kitchen']).then();
+      }
+    }
+  }
+
+  load(): void {
     this.loading = true;
   }
 }

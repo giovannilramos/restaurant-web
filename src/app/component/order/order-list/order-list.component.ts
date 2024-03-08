@@ -21,7 +21,7 @@ export class OrderListComponent implements OnInit {
       this.listOrder();
     }
 
-  public listOrder() {
+  listOrder() {
     this.orderService.listOrder().subscribe(value => this.orderList = value);
   }
 }

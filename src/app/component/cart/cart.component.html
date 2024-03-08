@@ -1,0 +1,73 @@
+<mat-sidenav-container>
+  <mat-sidenav
+    #sidenav
+    position="end"
+    class="sidenav"
+    [mode]="'over'"
+    [fixedInViewport]="true"
+    [fixedTopGap]="0"
+    [fixedBottomGap]="0"
+    [autoFocus]="false"
+  >
+    <div class="container">
+      <div class="container-info">
+        <div class="sidenav-header">
+          <mat-icon class="center-items" style="margin-left: 10px;">shopping_cart</mat-icon>
+          <h2 class="center-items">My Items</h2>
+          <button class="center-items" style="margin-right: 10px;" mat-icon-button (click)="sidenav.toggle().then()">
+            <mat-icon>clear</mat-icon>
+          </button>
+        </div>
+        <div class="cart-content">
+          <ul *ngIf="productList.length > 0 else emptyCart">
+            <li *ngFor="let product of productList">
+              <div class="product-info">
+                <p>{{ product.quantity }}x {{ product.name }}</p>
+                <p>{{ product.subTotal | currency }}</p>
+              </div>
+              <p *ngIf="product.obs">Comments: {{ product.obs }}</p>
+              <a class="remove-button" (click)="removeItem(product)">Remove</a>
+              <mat-divider style="margin-top: 20px; margin-bottom: 10px;"></mat-divider>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div *ngIf="productList.length > 0" class="cart-confirm-order-button">
+        <button
+          color="warn"
+          mat-flat-button
+          class="button-size"
+          (click)="createOrder(productList, sidenav)"
+        >
+          Confirm Order
+        </button>
+      </div>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <ng-content>
+
+    </ng-content>
+    <div class="cart-button">
+      <button
+        mat-mini-fab
+        color="warn"
+        matBadge="{{ showCartItemsQuantity() }}"
+        matBadgePosition="before"
+        matBadgeColor="accent"
+        (click)="showCartItems(sidenav)"
+      >
+        <mat-icon>shopping_cart</mat-icon>
+      </button>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+<ng-template #emptyCart>
+  <div class="empty-cart">
+    <p>You don't choose anything yet!</p>
+    <mat-icon>mood_bad</mat-icon>
+  </div>
+</ng-template>

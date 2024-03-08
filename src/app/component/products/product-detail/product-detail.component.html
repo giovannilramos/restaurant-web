@@ -1,0 +1,37 @@
+<section class="modal">
+  <div class="product-image-detail">
+    <img class="product-image" src="{{ product.image }}" alt="{{ product.name }}">
+  </div>
+  <div class="product-content">
+    <div class="product-info">
+      <h1 class="product-title"><strong>{{ product.name }}</strong></h1>
+      <h2>Description</h2>
+      <p>{{ product.description }}</p>
+    </div>
+    <h2>Comments</h2>
+    <mat-form-field class="comment-text-area" appearance="outline" color="warn" [formGroup]="cartService.cartForm">
+      <textarea class="text-area-height" placeholder="Ex: remove onion, remove cheese." matInput [formControlName]="'obs'" ></textarea>
+    </mat-form-field>
+    <div class="product-buttons">
+      <div class="quantity-group">
+        <button (click)="removeQuantity()" [disabled]="disabled" style="border-radius: 10px 0 0 10px;"
+                class="p-button-outlined p-button-secondary button-size-height button-size-width" pButton
+                pRipple icon="pi pi-minus"></button>
+        <input readonly matInput class="input-quantity button-size-height button-size-width" [value]="quantity">
+        <button (click)="addQuantity()" style="border-radius: 0 10px 10px 0;"
+                class="p-button-outlined p-button-secondary button-size-height button-size-width" pButton
+                pRipple icon="pi pi-plus"></button>
+      </div>
+      <button
+        color="warn"
+        mat-flat-button
+        mat-dialog-close
+        class="button-size-height button-cart"
+        (click)="addToCard(product, quantity)"
+      >
+        <mat-icon>shopping_cart</mat-icon>
+        {{ quantity * product.price | currency }}
+      </button>
+    </div>
+  </div>
+</section>

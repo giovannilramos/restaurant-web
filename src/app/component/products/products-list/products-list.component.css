@@ -1,0 +1,93 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  height: 100vh;
+  min-height: 100vh;
+}
+
+.products-card {
+  width: 250px;
+  margin: 20px;
+  padding-bottom: 16px;
+  height: 300px;
+}
+
+.products-card:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.card-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  object-position: 50% 50%;
+  transition: transform 0.3s ease-in-out;
+}
+
+.card-image-container {
+  overflow: hidden;
+}
+
+.card-text {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 225px;
+}
+
+.products-container {
+  margin-left: 11vw;
+  padding: 0 100px;
+}
+
+.products-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.card-link {
+  text-decoration: none;
+  color: black;
+}
+
+.card-link:hover {
+  text-decoration: underline;
+}
+
+.products-card:hover .card-image {
+  transform: scale(1.2);
+}
+
+.sidebar {
+  width: 11vw;
+  position: fixed;
+  height: 100%;
+}
+
+.sidenav_list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-top: 0;
+  border-right-style: solid;
+  border-right-color: var(--mat-divider-color);
+  border-right-width: var(--mat-divider-width);
+}
+
+
+.sidenav_list li {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidenav_list button {
+  width: 100%;
+  height: 100%;
+}

@@ -1,0 +1,5 @@
+<section class="navigation-button" [ngClass]="sideButton">
+  <button mat-icon-button (click)="changePage(direction)">
+    <mat-icon>{{ this.direction === 'right' ? 'keyboard_arrow_right' : 'keyboard_arrow_left' }}</mat-icon>
+  </button>
+</section>

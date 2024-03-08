@@ -1,0 +1,13 @@
+.navigation-button {
+  position: fixed;
+  top: 50%;
+  bottom: 50%;
+}
+
+.rightButton {
+  right: 5%
+}
+
+.leftButton {
+  left: 15%
+}

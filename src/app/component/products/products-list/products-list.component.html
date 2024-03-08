@@ -1,1 +1,52 @@
-<p>products-list works!</p>
+<app-cart>
+  <div class="container">
+    <div class="sidebar">
+      <ul class="sidenav_list">
+        <li>
+          <button mat-flat-button (click)="filterProducts('category', null)">
+            All
+          </button>
+        </li>
+        <mat-divider></mat-divider>
+        <li>
+          <button mat-flat-button (click)="filterProducts('category', 'ENTRANCE')">
+            Entrance
+          </button>
+        </li>
+        <mat-divider></mat-divider>
+        <li>
+          <button mat-flat-button (click)="filterProducts('category', 'BURGERS')">
+            Burgers
+          </button>
+        </li>
+        <mat-divider></mat-divider>
+        <li>
+          <button mat-flat-button (click)="filterProducts('category', 'DRINKS')">
+            Drinks
+          </button>
+        </li>
+        <mat-divider></mat-divider>
+        <li>
+          <button mat-flat-button (click)="filterProducts('category', 'DESERTS')">
+            Deserts
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div class="products-container">
+      <app-navigation-button *ngIf="!pageableProducts.first" [direction]="'left'" [sideButton]="'leftButton'" (onChange)="listProducts(productService.productQuery.value)"></app-navigation-button>
+      <div class="products-list">
+        <mat-card *ngFor="let product of pageableProducts.content" class="products-card" (click)="openDetailsModal(product)">
+          <div class="card-image-container">
+            <img class="card-image" mat-card-image src="{{product.image}}" alt="{{ product.name }}">
+          </div>
+          <mat-card-header>
+            <mat-card-title class="card-text">{{ product.name }}</mat-card-title>
+            <mat-card-subtitle>{{ product.price | currency }}</mat-card-subtitle>
+          </mat-card-header>
+        </mat-card>
+      </div>
+      <app-navigation-button *ngIf="!pageableProducts.last" [direction]="'right'" [sideButton]="'rightButton'" (onChange)="listProducts(productService.productQuery.value)"></app-navigation-button>
+    </div>
+  </div>
+</app-cart>

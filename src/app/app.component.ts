@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +9,6 @@ import { MessageService } from 'primeng/api';
     imports: [CommonModule, RouterOutlet, ToastModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  providers: [MessageService]
 })
 export class AppComponent {
   title = 'restaurant-web';
