@@ -41,7 +41,7 @@
             <img class="card-image" mat-card-image src="{{product.image}}" alt="{{ product.name }}">
           </div>
           <mat-card-header>
-            <mat-card-title class="card-text">{{ product.name }}</mat-card-title>
+            <mat-card-title class="card-text" [matTooltipPosition]="'above'" matTooltip="{{ product.name }}">{{ product.name }}</mat-card-title>
             <mat-card-subtitle>{{ product.price | currency }}</mat-card-subtitle>
           </mat-card-header>
         </mat-card>

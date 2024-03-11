@@ -16,6 +16,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { ProductQuery } from '../../../dto/ProductQuery';
 import { NavigationButtonComponent } from '../navigation-button/navigation-button.component';
 import { PageableDto } from '../../../dto/PageableDto';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @Component({
@@ -36,6 +37,7 @@ import { PageableDto } from '../../../dto/PageableDto';
     MatDividerModule,
     NavigationButtonComponent,
     NgIf,
+    MatTooltipModule,
   ],
   templateUrl: './products-list.component.html',
   styleUrl: './products-list.component.css'
