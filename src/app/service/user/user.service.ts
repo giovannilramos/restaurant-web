@@ -40,6 +40,11 @@ export class UserService {
 
   isLogged(): boolean {
     const token = localStorage.getItem('token');
-    return !this.jwtHelper.isTokenExpired(token);
+    if (token && !this.jwtHelper.isTokenExpired(token)) {
+      return true;
+    }
+
+    localStorage.removeItem('token');
+    return false;
   }
 }
