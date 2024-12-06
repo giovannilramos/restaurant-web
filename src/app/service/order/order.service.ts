@@ -28,4 +28,8 @@ export class OrderService {
       })
     });
   }
+
+  updateOrderStatus(id: number): Observable<void> {
+    return this.http.patch<void>(`${environment.apiUrl}/v1/order/${id}/status`, null);
+  }
 }

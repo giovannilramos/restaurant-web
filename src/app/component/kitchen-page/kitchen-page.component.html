@@ -1,1 +1,55 @@
-<p>kitchen-page works!</p>
+<div class="container">
+  <mat-card class="overflow">
+    <mat-card-header class="content-center">
+      <h1>REQUESTED</h1>
+    </mat-card-header>
+    <mat-card-content>
+      <ul>
+        <li *ngFor="let todoOrder of todoOrderList" pDraggable
+            (onDragStart)="dragStart(todoOrder)" (onDragEnd)="dragEnd()">
+          <mat-card class="m-bot overflow cursor-move">
+            <mat-card-content class="m-bot" *ngFor="let item of todoOrder.itemResponseList">
+              <p>{{ item.quantity }}x {{ item.productResponse.name }}</p>
+              <p class="small-text margin-top" *ngIf="item.obs">Obs: {{ item.obs }}</p>
+            </mat-card-content>
+          </mat-card>
+        </li>
+      </ul>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="overflow" pDroppable (onDrop)="drop()">
+    <mat-card-header class="content-center">
+      <h1>PREPARING</h1>
+    </mat-card-header>
+    <mat-card-content>
+      <ul>
+        <li *ngFor="let doingOrder of doingOrderList" pDraggable
+            (onDragStart)="dragStart(doingOrder)" (onDragEnd)="dragEnd()">
+          <mat-card class="m-bot cursor-move">
+            <mat-card-content class="m-bot" *ngFor="let item of doingOrder.itemResponseList">
+              <p>{{ item.quantity }}x {{ item.productResponse.name }}</p>
+              <p class="small-text margin-top" *ngIf="item.obs">Obs: {{ item.obs }}</p>
+            </mat-card-content>
+          </mat-card>
+        </li>
+      </ul>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="overflow" pDroppable (onDrop)="drop2()">
+    <mat-card-header class="content-center">
+      <h1>FINISHED</h1>
+    </mat-card-header>
+    <mat-card-content>
+      <ul>
+        <li *ngFor="let finishedOrder of finishedOrderList">
+          <mat-card class="m-bot">
+            <mat-card-content class="m-bot" *ngFor="let item of finishedOrder.itemResponseList">
+              <p>{{ item.quantity }}x {{ item.productResponse.name }}</p>
+              <p class="small-text margin-top" *ngIf="item.obs">Obs: {{ item.obs }}</p>
+            </mat-card-content>
+          </mat-card>
+        </li>
+      </ul>
+    </mat-card-content>
+  </mat-card>
+</div>
